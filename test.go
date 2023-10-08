@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// Block represents a single block in the blockchain.
+// Single Block
 type Block struct {
 	Transaction  string
 	Nonce        int
@@ -13,18 +13,18 @@ type Block struct {
 	Hash         string
 }
 
-// Blockchain is a slice of blocks.
 type Blockchain struct {
 	Blocks []*Block
 }
 
-// CalculateHash calculates the hash of a string.
+// calculates the hash of a string.
 func CalculateHash(stringToHash string) string {
 	hash := sha256.Sum256([]byte(stringToHash))
 	return fmt.Sprintf("%x", hash)
 }
 
-// NewBlock creates a new block and adds it to the blockchain.
+// creates a new block
+// adds it to the blockchain.
 func (bc *Blockchain) NewBlock(transaction string, nonce int, previousHash string) *Block {
 	block := &Block{
 		Transaction:  transaction,
@@ -36,14 +36,14 @@ func (bc *Blockchain) NewBlock(transaction string, nonce int, previousHash strin
 	return block
 }
 
-// CreateHash calculates the hash of a block.
+// calculates the hash of a block.
 func (bc *Blockchain) CreateHash(b *Block) string {
 	data := fmt.Sprintf("%s%d%s", b.Transaction, b.Nonce, b.PreviousHash)
 	hash := sha256.Sum256([]byte(data))
 	return fmt.Sprintf("%x", hash)
 }
 
-// DisplayBlocks prints all blocks in the blockchain.
+// prints all blocks
 func (bc *Blockchain) DisplayBlocks() {
 	for i, block := range bc.Blocks {
 		fmt.Printf("Block %d:\n", i)
@@ -57,7 +57,7 @@ func (bc *Blockchain) DisplayBlocks() {
 	}
 }
 
-// ChangeBlock changes the transaction of a specific block.
+// changes the transaction of a specific block.
 func (bc *Blockchain) ChangeBlock(blockIndex int, newTransaction string) {
 	if blockIndex >= 0 && blockIndex < len(bc.Blocks) {
 		bc.Blocks[blockIndex].Transaction = newTransaction
@@ -65,7 +65,7 @@ func (bc *Blockchain) ChangeBlock(blockIndex int, newTransaction string) {
 	}
 }
 
-// VerifyChain verifies the integrity of the blockchain.
+// verifies the integrity
 func (bc *Blockchain) VerifyChain() bool {
 	for i := 1; i < len(bc.Blocks); i++ {
 		if bc.Blocks[i].PreviousHash != bc.Blocks[i-1].Hash {
