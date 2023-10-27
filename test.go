@@ -40,12 +40,11 @@ func (bc *Blockchain) CreateHash(b *Block) string {
 // prints all blocks
 func (bc *Blockchain) DisplayBlocks() {
 	for i, block := range bc.Blocks {
+		fmt.Printf("-----------------------------------\n")
 		fmt.Printf("Block %d:\n", i)
 		fmt.Printf("Transaction: %s\n", block.Transaction)
-
 		fmt.Printf("Prev Hash: %s\n", block.PreviousHash)
 		fmt.Printf("Curr Hash: %s\n\n", block.Hash)
-
 		fmt.Printf("Nonce: %d\n", block.Nonce)
 
 	}
