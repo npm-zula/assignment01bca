@@ -54,7 +54,7 @@ func (bc *Blockchain) DisplayBlocks() {
 func (bc *Blockchain) ChangeBlock(blockIndex int, newTransaction string) {
 	if blockIndex >= 0 && blockIndex < len(bc.Blocks) {
 		bc.Blocks[blockIndex].Transaction = newTransaction
-		bc.Blocks[blockIndex].Hash = bc.CreateHash(bc.Blocks[blockIndex])
+		// bc.Blocks[blockIndex].Hash = bc.CreateHash(bc.Blocks[blockIndex])
 	}
 }
 
