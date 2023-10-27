@@ -44,8 +44,8 @@ func (bc *Blockchain) DisplayBlocks() {
 		fmt.Printf("Block %d:\n", i)
 		fmt.Printf("Transaction: %s\n", block.Transaction)
 		fmt.Printf("Prev Hash: %s\n", block.PreviousHash)
-		fmt.Printf("Curr Hash: %s\n\n", block.Hash)
-		fmt.Printf("Nonce: %d\n", block.Nonce)
+		fmt.Printf("Curr Hash: %s\n", block.Hash)
+		fmt.Printf("Nonce: %d\n\n", block.Nonce)
 
 	}
 }
