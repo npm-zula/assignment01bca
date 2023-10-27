@@ -17,12 +17,6 @@ type Blockchain struct {
 	Blocks []*Block
 }
 
-// calculates the hash of a string.
-func CalculateHash(stringToHash string) string {
-	hash := sha256.Sum256([]byte(stringToHash))
-	return fmt.Sprintf("%x", hash)
-}
-
 // creates a new block
 // adds it to the blockchain.
 func (bc *Blockchain) NewBlock(transaction string, nonce int, previousHash string) *Block {
@@ -67,10 +61,26 @@ func (bc *Blockchain) ChangeBlock(blockIndex int, newTransaction string) {
 
 // verifies the integrity
 func (bc *Blockchain) VerifyChain() bool {
+	// Check the first block (genesis block)
+	if len(bc.Blocks) == 0 {
+		return true
+	}
+
+	// Start from the second block (index 1)
 	for i := 1; i < len(bc.Blocks); i++ {
-		if bc.Blocks[i].PreviousHash != bc.Blocks[i-1].Hash {
+		currentBlock := bc.Blocks[i]
+		previousBlock := bc.Blocks[i-1]
+
+		// Check if the hash of the current block is valid
+		if currentBlock.Hash != bc.CreateHash(currentBlock) {
+			return false
+		}
+
+		// Check if the PreviousHash of the current block matches the hash of the previous block
+		if currentBlock.PreviousHash != previousBlock.Hash {
 			return false
 		}
 	}
+
 	return true
 }
